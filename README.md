@@ -5,9 +5,8 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/nornir-dispatch)][python version]
 [![License](https://img.shields.io/pypi/l/nornir-dispatch)][license]
 
-[![Read the documentation at https://nornir-dispatch.readthedocs.io/](https://img.shields.io/readthedocs/nornir-dispatch/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![Read the documentation at https://dgarros.github.io/nornir-dispatch/](https://dgarros.github.io/nornir-dispatch/)][Doc]
 [![Tests](https://github.com/dgarros/nornir-dispatch/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/dgarros/nornir-dispatch/branch/main/graph/badge.svg)][codecov]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
@@ -15,19 +14,16 @@
 [pypi_]: https://pypi.org/project/nornir-dispatch/
 [status]: https://pypi.org/project/nornir-dispatch/
 [python version]: https://pypi.org/project/nornir-dispatch
-[read the docs]: https://nornir-dispatch.readthedocs.io/
+[Documentation]: https://dgarros.github.io/nornir-dispatch/
 [tests]: https://github.com/dgarros/nornir-dispatch/actions?workflow=Tests
-[codecov]: https://app.codecov.io/gh/dgarros/nornir-dispatch
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
 ## Features
 
-- TODO
+Nornir Dispatch is a utility for Nornir to simplify how to run multi-vendor workflows.
 
-## Requirements
-
-- TODO
+Nornir Dispatch allows you to register some tasks per platform and execute them seamlessly based on each host's characteristics.
 
 ## Installation
 
@@ -39,7 +35,42 @@ $ pip install nornir-dispatch
 
 ## Usage
 
-Please see the [Command-line Reference] for details.
+```python
+from nornir import InitNornir
+from nornir.core.task import Result, Task
+
+from nornir_dispatch import registry
+from nornir_dispatch.plugins.tasks.dispatcher import dispatcher
+
+def get_config_pyez(task: Task) -> Result:
+    # Retrieve the config with Pyez for Junos devices
+    config = None
+    Result(host=task.host, result=config)
+
+def get_config_netmiko(task: Task) -> Result:
+    # Retrieve the config with Netmiko for other devices
+    config = None
+    Result(host=task.host, result=config)
+
+
+def main():
+    nr = InitNornir(
+            inventory={
+                "plugin": "SimpleInventory",
+                "options": {
+                    "host_file": "inventory.yml",
+                },
+            }
+        )
+
+    registry.register_tasks(platform="juniper_junos", action="get_config", task=get_config_pyez)
+    registry.register_tasks(platform="cisco_ios", action="get_config", task=get_config_netmiko)
+
+    results = nr.run(task=dispatcher, action="get_config")
+
+if __name__ == "__main__":
+    main()
+```
 
 ## Contributing
 
