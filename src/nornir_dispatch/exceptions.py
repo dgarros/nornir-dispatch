@@ -1,4 +1,4 @@
-"""Collection of Exception for nornir_dispatch"""
+"""Collection of Exception for nornir_dispatch."""
 from typing import Optional
 
 
@@ -7,7 +7,7 @@ class PlatformNotFoundError(Exception):
 
     def __init__(self, platform: str, message: Optional[str] = None):
         self.platform = platform
-        self.message = message or f"No task registered for the platform: '{platform}'."
+        self.message = message or f"No task registered for the platform: {platform!r}."
         super().__init__(self.message)
 
 
@@ -19,6 +19,6 @@ class TaskNotFoundError(Exception):
         self.action = action
         self.message = (
             message
-            or f"No task registered for the action '{action}' for the platform: '{platform}'."
+            or f"No task registered for the action {action!r} for the platform: {platform!r}."
         )
         super().__init__(self.message)

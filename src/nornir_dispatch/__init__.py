@@ -7,7 +7,6 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Any
 from typing import Callable
-from typing import Dict
 
 from nornir.core.task import Result
 
@@ -90,6 +89,9 @@ class Registry:
             platform (str): Name of the platform to associate with these tasks
             driver (type[object]): Driver Class containing one or multiple Nornir tasks defined as staticfunction
 
+        Raises:
+            TypeError: "driver must be a subclass of NornirDispatchBaseDriver"
+            ValueError: Plaform must be defined at the driver level or it be defined explicitly
         """
         if not issubclass(driver, NornirDispatchBaseDriver):
             raise TypeError("driver must be a subclass of NornirDispatchBaseDriver")
