@@ -21,7 +21,7 @@ nornir = "^3"
 
 [tool.poetry.group.dev.dependencies]
 Pygments = ">=2.10.0"
-black = ">=21.10b0"
+black = ">=23.1.0"
 coverage = {extras = ["toml"], version = ">=6.2"}
 darglint = ">=1.8.1"
 flake8 = ">=4.0.1"
