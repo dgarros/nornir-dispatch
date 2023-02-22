@@ -2,21 +2,13 @@ from __future__ import annotations
 
 import importlib
 import logging
-import re
 from collections import defaultdict
 from dataclasses import dataclass
 from dataclasses import field
-from typing import TYPE_CHECKING
 from typing import Callable
-from typing import Dict
-from typing import Optional
-from typing import Type
-from typing import Union
 
-from nornir.core.task import Result
-from nornir.core.task import Task
-from nornir_dispatcher.exceptions import PlatformNotFoundError
-from nornir_dispatcher.exceptions import TaskNotFoundError
+from nornir_dispatch.exceptions import PlatformNotFoundError
+from nornir_dispatch.exceptions import TaskNotFoundError
 
 
 LOGGER = logging.getLogger(__name__)
