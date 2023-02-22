@@ -1,0 +1,13 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Damien Garros",
+  "copyright_year": "2023",
+  "development_status": "Development Status :: 3 - Alpha",
+  "email": "dgarros@gmail.com",
+  "friendly_name": "Nornir Dispatch",
+  "github_user": "dgarros",
+  "license": "Apache-2.0",
+  "package_name": "nornir_dispatch",
+  "project_name": "nornir-dispatch",
+  "version": "0.1.0"
+}
