@@ -1,4 +1,5 @@
-from nornir.core.task import Result, Task
+from nornir.core.task import Result
+from nornir.core.task import Task
 
 from nornir_dispatch import Registry
 
