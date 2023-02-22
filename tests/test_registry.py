@@ -1,8 +1,8 @@
 from nornir.core.task import Result
 from nornir.core.task import Task
 
-from nornir_dispatch import Registry
 from nornir_dispatch import NornirDispatchBaseDriver
+from nornir_dispatch import Registry
 
 
 def alwaystrue(task: Task) -> Result:

@@ -5,9 +5,8 @@ import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from dataclasses import field
-from typing import Callable
-from typing import Optional
 from typing import Any
+from typing import Callable
 from typing import Dict
 
 from nornir.core.task import Result
@@ -23,7 +22,7 @@ class NornirDispatchBaseDriver:
     platform: str
 
     @classmethod
-    def get_tasks(cls) -> Dict[str, Callable[[Any], Result]]:
+    def get_tasks(cls) -> dict[str, Callable[[Any], Result]]:
         """Return all the Nornir Task defined in this driver."""
         tasks = {}
         for key, value in cls.__dict__.items():
