@@ -7,9 +7,9 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      - id: autoflake8
-        name: autoflake8
-        entry: autoflake8
+      - id: autoflake
+        name: autoflake
+        entry: autoflake
         language: system
         types: [python]
         args:
