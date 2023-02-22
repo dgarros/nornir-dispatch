@@ -2,42 +2,43 @@ from nornir.core.task import Result
 from nornir.core.task import Task
 
 from nornir_dispatch import Registry
+from nornir_dispatch import NornirDispatchBaseDriver
 
 
-def alwaystrue(task: Task, logger, obj) -> Result:
-    return True
+def alwaystrue(task: Task) -> Result:
+    return Result(host=None, result=True)
 
 
-def alwaysfalse(task: Task, logger, obj) -> Result:
-    return False
+def alwaysfalse(task: Task) -> Result:
+    return Result(host=None, result=False)
 
 
-class AristaDriver:
+class AristaDriver(NornirDispatchBaseDriver):
     @staticmethod
-    def action1(task: Task, logger, obj) -> Result:
-        return True
-
-    @staticmethod
-    def action2(task: Task, logger, obj) -> Result:
-        return "action2 arista"
-
-
-class CiscoDriver:
-    @staticmethod
-    def action1(task: Task, logger, obj) -> Result:
-        return False
+    def action1(task: Task) -> Result:
+        return Result(host=None, result=True)
 
     @staticmethod
-    def action2(task: Task, logger, obj) -> Result:
-        return "action2 cisco"
+    def action2(task: Task) -> Result:
+        return Result(host=None, result="action2 Arista")
 
 
-def test_registry_init():
+class CiscoDriver(NornirDispatchBaseDriver):
+    @staticmethod
+    def action1(task: Task) -> Result:
+        return Result(host=None, result=False)
+
+    @staticmethod
+    def action2(task: Task) -> Result:
+        return Result(host=None, result="action2 Cisco")
+
+
+def test_registry_init() -> None:
     registry = Registry()
     assert registry
 
 
-def test_register_task():
+def test_register_task() -> None:
     registry = Registry()
     assert registry.register_task(
         platform="arista_eos", action="action1", task=alwaystrue
@@ -49,7 +50,7 @@ def test_register_task():
     assert registry.tasks["arista_eos"]["action1"].origin is None
 
 
-def test_register_tasks():
+def test_register_tasks() -> None:
     registry = Registry()
     registry.register_tasks(platform="arista_eos", driver=AristaDriver)
 
@@ -59,7 +60,7 @@ def test_register_tasks():
     assert registry.tasks["arista_eos"]["action1"].origin == "AristaDriver"
 
 
-def test_get_task():
+def test_get_task() -> None:
     registry = Registry()
     assert registry.register_task(
         platform="arista_eos", action="action1", task=alwaystrue
