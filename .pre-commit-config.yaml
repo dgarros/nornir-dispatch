@@ -7,6 +7,21 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      - id: autoflake8
+        name: autoflake8
+        entry: autoflake8
+        language: system
+        types: [python]
+        args:
+          [
+            --recursive,
+            --verbose,
+            --in-place,
+            --remove-all-unused-imports,
+            --remove-unused-variables,
+            ".",
+          ]
+        require_serial: true
       - id: check-added-large-files
         name: Check for added large files
         entry: check-added-large-files
